@@ -24,11 +24,17 @@ def load_module(module_name, file_path):
 
 # Load the modules
 try:
-    # Adjust paths as necessary. Assuming main.py is in the same dir as the other files.
-    interview_module = load_module("interview_100", "100interview.py")
-    system_arch_module = load_module("system_arch", "systemarch.py")
+    # Get the directory where main.py is located
+    current_dir = os.path.dirname(os.path.abspath(__file__))
+    
+    # Construct absolute paths to the sibling files
+    interview_path = os.path.join(current_dir, "100interview.py")
+    system_arch_path = os.path.join(current_dir, "systemarch.py")
+
+    interview_module = load_module("interview_100", interview_path)
+    system_arch_module = load_module("system_arch", system_arch_path)
 except FileNotFoundError:
-    st.error("Could not find the page files. Please ensure '100interview.py' and 'systemarch.py' are in the same directory.")
+    st.error(f"Could not find the page files. looked in {current_dir}")
     st.stop()
 
 # Sidebar Navigation
